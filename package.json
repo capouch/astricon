@@ -1,0 +1,21 @@
+{
+  "name": "astricon-demo",
+  "version": "0.1.0",
+  "description": "Asterisk ARI Playground",
+  "repository": "https://github.com/capouch/astricon.git",
+  "main": "js/app.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node index-local.js",
+    "watch": "webpack --watch",
+    "serve": "webpack-dev-server --content-base public/ --history-api-fallback",
+    "build": "webpack -p",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint --ext js,jsx ."
+  },
+  "author": "Brian Capouch",
+  "license": "ISC",
+  "dependencies": {
+    "ari-client": "^1.1.1"
+  }
+}
