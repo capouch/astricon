@@ -20,7 +20,9 @@ ari.connect('http://knuckle.palaver.net:8088', 'brianc', 'getmeoutofhere')
       // ensure the channel is not a dialed channel
       var dialed = event.args[0] === 'dialed';
 
+      // Ignore this callback if spawned by the dialed channel
       if (!dialed) {
+        // Pick up originating channel
         channel.answer(function(err) {
           if (err) {
             throw err;
@@ -28,6 +30,7 @@ ari.connect('http://knuckle.palaver.net:8088', 'brianc', 'getmeoutofhere')
 
           console.log('Channel %s has entered our application', channel.name);
 
+          // Let originating calling know what's happening
           var playback = client.Playback();
           channel.play({media: 'sound:pls-hold-while-try'},
             playback, function(err, playback) {
@@ -35,27 +38,33 @@ ari.connect('http://knuckle.palaver.net:8088', 'brianc', 'getmeoutofhere')
                 throw err;
               }
           });
-
+          // Call endpoint passed as argument
           originate(channel);
         });
       }
     }
 
+    // Bridge originating channel to channel given as argument
     function originate(channel) {
+      // Create a new channel for destination
       var dialed = client.Channel();
 
+      // Listen for hangup by dialed extension
       channel.on('StasisEnd', function(event, channel) {
         hangupDialed(channel, dialed);
       });
 
+      // This callback will follow the one above
       dialed.on('ChannelDestroyed', function(event, dialed) {
         hangupOriginal(channel, dialed);
       });
 
+      // Once Stasis has been entered, create a new bridge
       dialed.on('StasisStart', function(event, dialed) {
         joinMixingBridge(channel, dialed);
       });
 
+      // 
       dialed.originate(
         {endpoint: process.argv[2], app: 'bridge-dial', appArgs: 'dialed'},
         function(err, dialed) {
@@ -85,7 +94,7 @@ ari.connect('http://knuckle.palaver.net:8088', 'brianc', 'getmeoutofhere')
       console.log('Dialed channel %s has been hung up, hanging up channel %s',
         dialed.name, channel.name);
 
-      // hangup the other end
+      // hang up the other end
       channel.hangup(function(err) {
         // ignore error since original channel could have hung up, causing the
         // dialed channel to exit Stasis
