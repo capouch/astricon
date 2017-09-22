@@ -1,0 +1,248 @@
+type answer {
+  # default field
+  empty: String
+}
+
+type continueInDialplan {
+  # default field
+  empty: String
+}
+
+type create {
+  # default field
+  empty: String
+}
+
+type dial {
+  # default field
+  empty: String
+}
+
+type get {
+  # default field
+  empty: String
+}
+
+type getChannelVar {
+  # default field
+  empty: String
+}
+
+type hangup {
+  # default field
+  empty: String
+}
+
+type hold {
+  # default field
+  empty: String
+}
+
+type list {
+  # default field
+  empty: String
+}
+
+type Mutation {
+  # Create a new channel (originate).
+  originate(endpoint: String, extension: String, context: String, priority: String, label: String, app: String, appArgs: String, callerId: String, timeout: String, variables: param_originate_variables, channelId: String, otherChannelId: String, originator: String, formats: String): originate
+
+  # Create channel.
+  create(endpoint: String, app: String, appArgs: String, channelId: String, otherChannelId: String, originator: String, formats: String): create
+
+  # Create a new channel (originate with id).
+  originateWithId(channelId: String, endpoint: String, extension: String, context: String, priority: String, label: String, app: String, appArgs: String, callerId: String, timeout: String, variables: param_originateWithId_variables, otherChannelId: String, originator: String, formats: String): originateWithId
+
+  # Delete (i.e. hangup) a channel.
+  hangup(channelId: String, reason: String): hangup
+
+  # Exit application; continue execution in the dialplan.
+  continueInDialplan(channelId: String, context: String, extension: String, priority: String, label: String): continueInDialplan
+
+  # Redirect the channel to a different location.
+  redirect(channelId: String, endpoint: String): redirect
+
+  # Answer a channel.
+  answer(channelId: String): answer
+
+  # Indicate ringing to a channel.
+  ring(channelId: String): ring
+
+  # Stop ringing indication on a channel if locally generated.
+  ringStop(channelId: String): ringStop
+
+  # Send provided DTMF to a given channel.
+  sendDTMF(channelId: String, dtmf: String, before: String, between: String, duration: String, after: String): sendDTMF
+
+  # Mute a channel.
+  mute(channelId: String, direction: String): mute
+
+  # Unmute a channel.
+  unmute(channelId: String, direction: String): unmute
+
+  # Hold a channel.
+  hold(channelId: String): hold
+
+  # Remove a channel from hold.
+  unhold(channelId: String): unhold
+
+  # Play music on hold to a channel.
+  startMoh(channelId: String, mohClass: String): startMoh
+
+  # Stop playing music on hold to a channel.
+  stopMoh(channelId: String): stopMoh
+
+  # Play silence to a channel.
+  startSilence(channelId: String): startSilence
+
+  # Stop playing silence to a channel.
+  stopSilence(channelId: String): stopSilence
+
+  # Start playback of media.
+  play(channelId: String, media: String, lang: String, offsetms: String, skipms: String, playbackId: String): play
+
+  # Start playback of media and specify the playbackId.
+  playWithId(channelId: String, playbackId: String, media: String, lang: String, offsetms: String, skipms: String): playWithId
+
+  # Start a recording.
+  record(channelId: String, name: String, format: String, maxDurationSeconds: String, maxSilenceSeconds: String, ifExists: String, beep: String, terminateOn: String): record
+
+  # Set the value of a channel variable or function.
+  setChannelVar(channelId: String, variable: String, value: String): setChannelVar
+
+  # Start snooping.
+  snoopChannel(channelId: String, app: String, spy: String, whisper: String, appArgs: String, snoopId: String): snoopChannel
+
+  # Start snooping.
+  snoopChannelWithId(channelId: String, snoopId: String, app: String, spy: String, whisper: String, appArgs: String): snoopChannelWithId
+
+  # Dial a created channel.
+  dial(channelId: String, caller: String, timeout: String): dial
+}
+
+type mute {
+  # default field
+  empty: String
+}
+
+type originate {
+  # default field
+  empty: String
+}
+
+type originateWithId {
+  # default field
+  empty: String
+}
+
+# The "variables" key in the body object holds variable key/value pairs to set on
+# the channel on creation. Other keys in the body object are interpreted as query
+# parameters. Ex. { "endpoint": "SIP/Alice", "variables": { "CALLERID(name)": "Alice" } }
+input param_originate_variables {
+  # default field
+  empty: String
+}
+
+# The "variables" key in the body object holds variable key/value pairs to set on
+# the channel on creation. Other keys in the body object are interpreted as query
+# parameters. Ex. { "endpoint": "SIP/Alice", "variables": { "CALLERID(name)": "Alice" } }
+input param_originateWithId_variables {
+  # default field
+  empty: String
+}
+
+type play {
+  # default field
+  empty: String
+}
+
+type playWithId {
+  # default field
+  empty: String
+}
+
+type Query {
+  viewer: viewer
+}
+
+type record {
+  # default field
+  empty: String
+}
+
+type redirect {
+  # default field
+  empty: String
+}
+
+type ring {
+  # default field
+  empty: String
+}
+
+type ringStop {
+  # default field
+  empty: String
+}
+
+type sendDTMF {
+  # default field
+  empty: String
+}
+
+type setChannelVar {
+  # default field
+  empty: String
+}
+
+type snoopChannel {
+  # default field
+  empty: String
+}
+
+type snoopChannelWithId {
+  # default field
+  empty: String
+}
+
+type startMoh {
+  # default field
+  empty: String
+}
+
+type startSilence {
+  # default field
+  empty: String
+}
+
+type stopMoh {
+  # default field
+  empty: String
+}
+
+type stopSilence {
+  # default field
+  empty: String
+}
+
+type unhold {
+  # default field
+  empty: String
+}
+
+type unmute {
+  # default field
+  empty: String
+}
+
+type viewer {
+  # List all active channels in Asterisk.
+  list: list
+
+  # Channel details.
+  get(channelId: String): get
+
+  # Get the value of a channel variable or function.
+  getChannelVar(channelId: String, variable: String): getChannelVar
+}
+

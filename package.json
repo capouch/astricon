@@ -16,6 +16,8 @@
   "author": "Brian Capouch",
   "license": "ISC",
   "dependencies": {
-    "ari-client": "^1.1.1"
+    "ari-client": "^1.1.1",
+    "graphql": "^0.11.3",
+    "graphql-tools": "^1.2.3"
   }
 }
